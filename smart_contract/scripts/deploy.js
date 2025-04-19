@@ -1,32 +1,21 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
-// will compile your contracts, add the Hardhat Runtime Environment's members to the
-// global scope, and execute the script.
+// scripts/deploy-upload.js
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  // 1. Lấy factory của contract Upload
+  const upload = await hre.ethers.deployContract("Upload");
+  // Nếu dùng phiên bản cũ của ethers.js: 
+  // const Upload = await hre.ethers.getContractFactory("Upload");
+  // const upload = await Upload.deploy();
+  
+  // 2. Chờ cho contract được deploy xong
+  await upload.waitForDeployment();
+  // Nếu dùng .deployed() (ethers v5): await upload.deployed();
 
-  const lockedAmount = hre.ethers.parseEther("0.001");
-
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
-
-  await lock.waitForDeployment();
-
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+  // 3. In ra địa chỉ contract
+  console.log(`Upload contract deployed to: ${upload.target}`);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;

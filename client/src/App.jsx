@@ -44,9 +44,7 @@ function App() {
         const contract = new ethers.Contract(
           contractAddress,contractAbi,signer
         )
-        const tx = await contract.unlock();
-        console.log("Giao dịch mở khóa đã được gửi:", tx);
-        console.log('contract ', contract)
+  
         setContract(contract);
         setProvider(provider)
       }
