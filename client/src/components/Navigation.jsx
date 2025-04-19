@@ -50,15 +50,15 @@ const Navigation = () => {
                 <div className="flex flex-shrink-0 items-center">
                   <Link to='/'>
 
-                    <img
+                    {/* <img
                       className="h-8 w-auto"
                       src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                      alt="Your Company"
-                    />
+                      // alt="Your Company"
+                    /> */}
                   </Link>
                   <Link to='/'>
 
-                    <span className='text-3xl ml-3 text-white'>Blockchain Drive</span>
+                    <span className='text-3xl ml-3 text-white'>Blockchain Storage</span>
                   </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
@@ -81,14 +81,14 @@ const Navigation = () => {
 
 
 
-                    <Link
+                    {/* <Link
                       key="21"
                       to='/#files'
                       onClick={scrollToSection}
                       className=" text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                     >
                       Files
-                    </Link>
+                    </Link> */}
 
 
                     <Link

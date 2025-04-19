@@ -4,7 +4,6 @@ const hre = require("hardhat");
 async function main() {
   // 1. Lấy factory của contract Upload
   const upload = await hre.ethers.deployContract("Upload");
-  // Nếu dùng phiên bản cũ của ethers.js: 
   // const Upload = await hre.ethers.getContractFactory("Upload");
   // const upload = await Upload.deploy();
   
