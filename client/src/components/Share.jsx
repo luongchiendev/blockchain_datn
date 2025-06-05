@@ -2,11 +2,11 @@
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { contractAbi, contractAddress } from '../utils/constants';
-
+import { useSnackbar } from 'notistack';
 
 const Share = () => {
 
-
+    const { enqueueSnackbar } = useSnackbar();
 
     contractAddress
 
@@ -53,7 +53,7 @@ const Share = () => {
             provider && loadProvider();
         }
         else {
-            alert('Please Install Metamusk')
+            enqueueSnackbar("Please install Metamask", { variant: 'warning' });
         }
 
     },

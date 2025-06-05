@@ -1,10 +1,12 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { useSnackbar } from 'notistack';
 import "./Display.css";
 const Display = ({ contract, account }) => {
   const [data, setData] = useState("");
- 
+  
+  const { enqueueSnackbar } = useSnackbar();
   const getdata = async () => {
     let dataArray;
     const Otheraddress = document.querySelector(".address").value;
@@ -16,7 +18,7 @@ const Display = ({ contract, account }) => {
         dataArray = await contract.display(account);
       }
     } catch (e) {
-      alert("You don't have access");
+      enqueueSnackbar("You don't have the access", { variant: 'warning' });
     }
     const isEmpty = Object.keys(dataArray).length === 0;
 
@@ -43,7 +45,7 @@ const Display = ({ contract, account }) => {
       });
       setData(images);
     } else {
-      alert("No image to display");
+      enqueueSnackbar("No image to display", { variant: 'warning' });
     }
   };
   return (

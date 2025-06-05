@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import './Files.css';
 import { FaFileExcel, FaFileWord, FaFilePdf } from "react-icons/fa";
 import { FileText } from "lucide-react";
+import { useSnackbar } from 'notistack';
 
 export default function Files({ contract, account, shared, title }) {
   const [groupedFiles, setGroupedFiles] = useState({});
@@ -12,6 +13,7 @@ export default function Files({ contract, account, shared, title }) {
   const [verifyResult, setVerifyResult] = useState(null); // null | true | false
   const [verifying, setVerifying] = useState(false);
   const inputRef = useRef(null);
+    const { enqueueSnackbar } = useSnackbar();
 
   const formatDateGroup = (timestamp) => {
     const date = new Date(timestamp * 1000);
@@ -67,7 +69,7 @@ export default function Files({ contract, account, shared, title }) {
       const user = shared ? Otheraddress : account;
 
       if (shared && !Otheraddress) {
-        alert("Enter the address");
+        enqueueSnackbar("Please enter the address.", { variant: 'warning' });
         return;
       }
 
@@ -96,7 +98,7 @@ export default function Files({ contract, account, shared, title }) {
 
       setGroupedFiles(filesByDate);
     } catch (e) {
-      alert("You don't have access");
+      enqueueSnackbar("You don't have the access", { variant: 'error' });
       setGroupedFiles({});
     }
   };
@@ -133,7 +135,7 @@ export default function Files({ contract, account, shared, title }) {
       const isValid = fileHash === selectedFile.keccakHash;
       setVerifyResult(isValid);
     } catch (error) {
-      alert("Error verifying file: " + error.message);
+      enqueueSnackbar(`Error verifying file ${error.message}`, { variant: 'error' });
       setVerifyResult(false);
     }
     setVerifying(false);

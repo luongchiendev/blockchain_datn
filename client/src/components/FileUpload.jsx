@@ -7,8 +7,10 @@ import { UploadCloud, FileText, Download, X } from "lucide-react";
 import { FaFileExcel, FaFileWord, FaFilePdf } from "react-icons/fa";
 import { Button } from "./ui/button";
 import { keccak256 } from "ethers/lib/utils";
+import { useSnackbar } from 'notistack';
 
 const FileUpload = ({ contract, account, setUploadHistory }) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [fileList, setFileList] = useState([]);
   const fileInputRef = useRef(null);
 
@@ -102,9 +104,10 @@ const FileUpload = ({ contract, account, setUploadHistory }) => {
       }
       setUploadHistory(prev => [...newUploadedFiles, ...prev]);
       setFileList(updatedFiles);
+      enqueueSnackbar("Success", { variant: 'success' });
     } catch (err) {
       console.error(err);
-      alert("Lỗi khi upload hoặc ký số");
+      enqueueSnackbar("There's something wrong", { variant: 'error' });
     }
   };
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSnackbar } from 'notistack';
 import './App.css';
 import { ethers } from "ethers";
 import { contractAbi, contractAddress } from './utils/constants';
@@ -11,6 +12,7 @@ function App() {
   const [contract , setContract] = useState(null);
   const [provider , setProvider] = useState(null);
   const [uploadHistory, setUploadHistory] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
   
 
@@ -51,7 +53,7 @@ function App() {
 
   const connectWallet = async () => {
     if (!window.ethereum) {
-      alert("Please install MetaMask.");
+      enqueueSnackbar("Please install MetaMask.", { variant: 'warning' });
       return;
     }
 
