@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useRef, useState } from "react";
 import { ethers } from "ethers";
 import './Files.css';
 import { FaFileExcel, FaFileWord, FaFilePdf } from "react-icons/fa";
@@ -10,6 +11,7 @@ export default function Files({ contract, account, shared, title }) {
   const [showModal, setShowModal] = useState(false);
   const [verifyResult, setVerifyResult] = useState(null); // null | true | false
   const [verifying, setVerifying] = useState(false);
+  const inputRef = useRef(null);
 
   const formatDateGroup = (timestamp) => {
     const date = new Date(timestamp * 1000);
@@ -41,8 +43,8 @@ export default function Files({ contract, account, shared, title }) {
     setVerifying(false);
   };
 
-  const getFileIcon = (fileUrl) => {
-    const ext = fileUrl.split('.').pop().toLowerCase();
+  const getFileIcon = (fileName, fileUrl) => {
+    const ext = fileName.split('.').pop().toLowerCase();
 
     if (["png", "jpg", "jpeg", "gif", "bmp", "webp"].includes(ext)) {
       return <img src={fileUrl} alt="preview" className="h-32 w-32 file-icon object-cover mx-auto mb-1 rounded" />;
@@ -60,7 +62,7 @@ export default function Files({ contract, account, shared, title }) {
   };
 
   const GetAllFiles = async () => {
-    const Otheraddress = document.querySelector(".address")?.value;
+    const Otheraddress = inputRef.current?.value;
     try {
       const user = shared ? Otheraddress : account;
 
@@ -139,22 +141,23 @@ export default function Files({ contract, account, shared, title }) {
 
   return (
     <>
-      <div className="text-3xl text-black border-bottom-1 flex">
+      <div className="text-2xl text-black border-bottom-1 flex">
         {title}
         <div className="grid grid-cols-5 w-2/3 gap-1 left mb-10 ml-10">
           {shared ? (
             <>
-              <button className="bg-btn text-white p-2 w-full col-span-1 hover:bg-green-700" onClick={GetAllFiles}>
+              <button className="bg-btn text-white p-1 w-full col-span-1 hover:bg-green-700" onClick={GetAllFiles}>
                 Load Files
               </button>
               <input
-                type="text"
-                placeholder="Enter Others Address"
-                className="address bg-btn w-full col-span-2"
-              />
+  type="text"
+  ref={inputRef}
+  placeholder="Enter recipient's address"
+  className="bg-white h-10 col-span-4 w- border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+/>
             </>
           ) : (
-            <button className="bg-btn text-white hover:bg-green-700 p-2 w-48" onClick={GetAllFiles}>
+            <button className="bg-btn text-white hover:bg-green-700 p-1 w-48" onClick={GetAllFiles}>
               Load Files
             </button>
           )}
@@ -169,7 +172,7 @@ export default function Files({ contract, account, shared, title }) {
         <div key={dateGroup} className="mb-10">
           <h2 className="text-xl font-semibold text-gray-800 mb-3">{dateGroup}</h2>
           <div className="w-full h-px bg-gray-300 mb-5"></div>
-          <ul className="divide-y divide-white grid grid-cols-1 md:grid-cols-8 gap-5">
+          <ul className="divide-y divide-white grid grid-cols-1 md:grid-cols-6 gap-5">
             {[...groupedFiles[dateGroup]]
               .sort((a, b) => b.timestamp - a.timestamp)
               .map((file, index) => (
@@ -178,7 +181,7 @@ export default function Files({ contract, account, shared, title }) {
                     key={index}
                     className="relative w-52 h-64 text-center border rounded shadow hover:shadow-md transition file-card"
                   >
-                    {getFileIcon(file.fileName)}
+                    {getFileIcon(file.fileName, file.url)}
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-gray-900 break-words mb-1">
                         {file.fileName}
@@ -199,9 +202,6 @@ export default function Files({ contract, account, shared, title }) {
           </ul>
         </div>
       ))}
-      <div className="ending text-gray-500">
-        <p>You reached the end of the list.</p>
-      </div>
 
       {showModal && selectedFile && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">

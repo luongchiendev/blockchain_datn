@@ -1,8 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { contractAbi, contractAddress } from '../utils/constants';
-import { TrashIcon } from '@heroicons/react/24/outline';
-import Files from './Files';
 
 
 const Share = () => {
@@ -98,42 +97,37 @@ const Share = () => {
     return (
 
         <>
+            <div id='files' className=" bg-gray-200   mx-auto max-w-7xl  sm:px-6   lg:px-8  py-5 md:py-10 my-5">
 
-    
+                <div className="text-3xl font-bold shadow-sm text-black  border-bottom-1"> Shared Files With Accounts</div>
 
-
-
-            <div id='files' className=" bg-black  bg-opacity-75  mx-auto max-w-7xl  sm:px-6   lg:px-8  py-5 md:py-10 my-5">
-
-                <div className="text-3xl font-bold  shadow-sm text-slate-50   border-bottom-1"> Shared Files With Accounts</div>
-
-                <p style={{ color: "white" }}>
+                <p style={{ color: "black" }}>
                     {account ? '' : "Please connect your metamusk account to view"}
                 </p>
 
             
-                <div className="grid grid-cols-5   w-full   gap-2 left mb-10"> 
+                <div className="grid grid-cols-5 w-full gap-2 left mb-10"> 
                 <input
                     type="text"
                     placeholder="Enter Others Address "
-                    className="address w-full p-5 col-span-2  rounded-xl  "
+                    className="bg-white text-black h-10 col-span-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                 />
                 
-                <button className=" button   w-full col-span-1 "  onClick={() => sharing()}>
+                <button className="button bg-btn  w-full col-span-1 text-white hover:bg-green-700"  onClick={() => sharing()}>
                     Share
                 </button> 
             </div>
 
 
-                <ol className="    grid grid-cols-1 md:grid-cols-1  gap-1  ">
+                <ol className="grid grid-cols-1 md:grid-cols-1  gap-1  ">
                     {sharedAddress.map((address, id) => (
                         (address[1])? (
 
-                            <li key={id} className="flex justify-between gap-x-1 bg-black   bg-opacity-20  py-0 px-2     ">
+                            <li key={id} className="flex justify-between gap-x-1 bg-gray-200  py-0 px-2     ">
                             <div className="flex min-w-0 gap-x-1    ">
-                            <div className="text-sm font-semibold leading-6 text-white whitespace-normal break-words mb-1  ">
-                            <span className='font-bold'>Account {id + 1}:</span>  {address[0]} </div>
-                            <span className=' border-red-950 text-red-700 border  p-1 cursor-pointer '
+                            <div className="text-sm font-semibold leading-6 text-black whitespace-normal break-words mb-1  ">
+                            <span className='font-bold text-black'>Account {id + 1}:</span>  {address[0]} </div>
+                            <span className='bg-red-500 text-white border p-1 cursor-pointer '
                             
                             onClick={()=>removAccess(address[0])}
                             >
@@ -146,15 +140,10 @@ const Share = () => {
                         ): ""
                     ))}
                 </ol>
-
-
- 
+                
 
             </div>
 
-                  <div className=" bg-white  bg-opacity-75  mx-auto max-w-7xl  sm:px-6   lg:px-8  py-5 md:py-10">
-      <Files contract={contract} account={account}  title="Shared With Me" shared='1' />
-        </div>
 
 
 

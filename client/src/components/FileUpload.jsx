@@ -8,7 +8,7 @@ import { FaFileExcel, FaFileWord, FaFilePdf } from "react-icons/fa";
 import { Button } from "./ui/button";
 import { keccak256 } from "ethers/lib/utils";
 
-const FileUpload = ({ contract, account }) => {
+const FileUpload = ({ contract, account, setUploadHistory }) => {
   const [fileList, setFileList] = useState([]);
   const fileInputRef = useRef(null);
 
@@ -31,6 +31,7 @@ const FileUpload = ({ contract, account }) => {
 
     try {
       const updatedFiles = [];
+      const newUploadedFiles = [];
 
       for (const fileObj of fileList) {
         const file = fileObj.file;
@@ -64,6 +65,18 @@ const FileUpload = ({ contract, account }) => {
         );
         await tx.wait();
 
+        newUploadedFiles.push({
+          fileName,
+          ipfs: ipfsUrl,
+          txHash: tx.hash,
+          hash: documentHash,
+          signature,
+          timestamp: new Date(),
+        });
+  
+        
+        
+
         updatedFiles.push({
           ...fileObj,
           url: ipfsUrl,
@@ -82,11 +95,12 @@ const FileUpload = ({ contract, account }) => {
               txHash: tx.hash,
               hash: documentHash,
               signature,
+              timestamp: new Date(),
             },
           ])
         );
       }
-
+      setUploadHistory(prev => [...newUploadedFiles, ...prev]);
       setFileList(updatedFiles);
     } catch (err) {
       console.error(err);
@@ -190,18 +204,18 @@ const FileUpload = ({ contract, account }) => {
                 >
                   <button
                     onClick={() => removeFile(index)}
-                    className="absolute top-1 right-1 text-gray-400 hover:text-white hover:bg-gray-500 rounded-full"
+                    className="absolute top-1 right-1 rounded-full p-1"
                   >
                     <X className="h-4 w-4" />
                   </button>
                   {getFileIcon(f)}
                   <p className="text-sm text-gray-600 truncate" title={f.name}>{f.name}</p>
                   <p className="text-xs text-gray-500">{f.size}KB</p>
-                  {f.url && (
+                  {/* {f.url && (
                     <a href={f.url} target="_blank" rel="noopener noreferrer">
                       <Download className="mx-auto mt-1 text-blue-600 hover:text-blue-800 cursor-pointer" />
                     </a>
-                  )}
+                  )} */}
                 </div>
               ))}
             </div>
@@ -211,7 +225,7 @@ const FileUpload = ({ contract, account }) => {
         <Button
           type="submit"
           disabled={fileList.length === 0}
-          className="mt-4 bg-btn bg-blue-600 text-white hover:bg-green-700"
+          className="mt-4 p-1 bg-btn bg-blue-600 text-white hover:bg-green-700"
         >
           Upload & Sign
         </Button>
