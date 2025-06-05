@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import "./Display.css";
-import Files from "./Files";
 const Display = ({ contract, account }) => {
   const [data, setData] = useState("");
  
@@ -37,13 +38,7 @@ const Display = ({ contract, account }) => {
               className="image-list"
               ></img>
           </a>
-
-          
-
         </>
-
-
-
         );
       });
       setData(images);

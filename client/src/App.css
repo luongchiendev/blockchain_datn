@@ -6,6 +6,7 @@
 
 .App {
   text-align: center;
+  background-color: #fff;
 }
 
 .App-logo {
@@ -20,7 +21,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #1954ca;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -50,17 +51,6 @@ body {
   margin: 0;
 }
 
-.bg {
-  /* animation: slide 3s ease-in-out infinite alternate; */
-  background-image: linear-gradient(-60deg, rgb(2, 9, 29) 50%, #09f 50%);
-  bottom: 0;
-  left: -50%;
-  opacity: 0.5;
-  position: fixed;
-  right: -50%;
-  top: 0;
-  z-index: -1;
-}
 
 .bg2 {
   animation-direction: alternate-reverse;
@@ -72,9 +62,9 @@ body {
 }
 
 .content {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(245, 239, 239, 0.8);
   border-radius: 0.25em;
-  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 0.25em rgba(20, 2, 2, 0.25);
   box-sizing: border-box;
   left: 50%;
   padding: 10vmin;
@@ -86,15 +76,6 @@ body {
 
 h1 {
   font-family: monospace;
-}
-
-@keyframes slide {
-  0% {
-    transform: translateX(-25%);
-  }
-  100% {
-    transform: translateX(25%);
-  }
 }
 
 * {
@@ -119,7 +100,7 @@ header .overlay {
   width: 100%;
   height: 100%;
   padding: 50px;
-  color: #fff;
+  color: black;
   text-shadow: 1px 1px 1px #333;
   background-image: linear-gradient(135deg, #9f05ff69 10%, #fd5e086b 100%);
 }
@@ -153,4 +134,27 @@ p {
 .share:hover {
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.bg {
+  background-color: rgb(247 251 248 / var(--tw-bg-opacity, 1));
+}
+
+.bg-btn {
+  background-color: rgb(0 147 75 / var(--tw-bg-opacity, 1));
+}
+
+.list-file {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.btn-x {
+  background-color: #fff;
+  border-radius: 9999px;
+  padding: 0.6rem;
+}
+
+.text-p {
+  color: black;
 }

@@ -67,41 +67,17 @@ const Navigation = () => {
                     <Link
                       key="hahha"
                       to='/'
-                      // className={classNames(
-                      //   item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      //   'rounded-md px-3 py-2 text-sm font-medium'
-                      // )}
-                      // aria-current={item.current ? 'page' : undefined}
-
-
                       className=" text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                     >
                       Home
                     </Link>
-
-
-
-                    {/* <Link
-                      key="21"
-                      to='/#files'
-                      onClick={scrollToSection}
-                      className=" text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                    >
-                      Files
-                    </Link> */}
-
-
                     <Link
                       key="ss"
                       to='/share'
-
-
                       className=" text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                     >
                       Share
                     </Link>
-
-
                   </div>
                 </div>
               </div>

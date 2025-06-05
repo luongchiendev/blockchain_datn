@@ -1,7 +1,8 @@
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import { contractAbi, contractAddress } from '../utils/constants';
-import { TrashIcon } from '@heroicons/react/24/outline'
+import { TrashIcon } from '@heroicons/react/24/outline';
+import Files from './Files';
 
 
 const Share = () => {
@@ -151,7 +152,9 @@ const Share = () => {
 
             </div>
 
-            
+                  <div className=" bg-white  bg-opacity-75  mx-auto max-w-7xl  sm:px-6   lg:px-8  py-5 md:py-10">
+      <Files contract={contract} account={account}  title="Shared With Me" shared='1' />
+        </div>
 
 
 
